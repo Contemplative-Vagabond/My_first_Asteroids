@@ -1,7 +1,7 @@
 import pygame
 from constants import *
-from circleshape import*
 from player import*
+
 
 def main():
     # Initialize pygame modules
@@ -12,6 +12,10 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
 
+    # Initialize game objeccts
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    Player.containers = (updatable, drawable)
     player = Player((SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2))
 
     # Game Loop:
@@ -23,9 +27,11 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
         
+        updatable.update(dt)
         # Draw game objects
-        screen.fill((0, 0 ,0)) # Black background
-        player.draw(screen)
+        screen.fill("black") # Black background
+        for obj in drawable:
+            obj.draw(screen)
         
         # Update display
         pygame.display.flip()
