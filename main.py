@@ -1,4 +1,5 @@
 import pygame
+import pygame.gfxdraw
 from constants import *
 from player import*
 from asteroid import Asteroid
@@ -10,6 +11,10 @@ def main():
 
     # Set game logic parameters
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    pygame.display.set_caption("Herroo")
+    
+    #death_screen = pygame.surface(SCREEN_WIDTH - MARGIN, SCREEN_HEIGHT - MARGIN, screen)
+    #death_screen.fill("red")
     clock = pygame.time.Clock()
     dt = 0
 
@@ -48,7 +53,8 @@ def main():
 
         for asteroid in asteroids:
             if asteroid.collide(player):
-                running = False
+                player.kill()
+                #screen.blit(death_screen, SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2)
                 print("Game Over!!")
         # Draw game objects
         screen.fill("black") # Black background
